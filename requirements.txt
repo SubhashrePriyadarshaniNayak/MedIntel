@@ -1,0 +1,7 @@
+django==5.1.7
+django-summernote==0.8.20.0
+together
+xhtml2pdf
+scikit-learn
+
+# pip install -U "channels[daphne]"

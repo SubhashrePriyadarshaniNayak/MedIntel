@@ -1,0 +1,169 @@
+{% extends "basic.html" %}
+{% load static %}
+{% block extrahead %}
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=chat"/>
+<style>
+    .material-symbols-outlined {
+      font-variation-settings:
+      'FILL' 0,
+      'wght' 400,
+      'GRAD' 0,
+      'opsz' 24
+    }
+    .chatbot-btn {
+        background-color: #ffffff;
+        border: 2px solid #007bff; /* blue border */
+        border-radius: 50%; /* make it circle */
+        width: 70px;
+        height: 70px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+        cursor: pointer;
+    }
+    .chatbot-btn:hover{
+        background: #007bff;
+    }
+    
+    .chatbot-btn .material-symbols-outlined {
+        font-size: 36px; /* larger icon */
+        color: #007bff; /* blue color */
+    }
+    .material-symbols-outlined:hover {
+        font-size: 36px; /* larger icon */
+        color: #ffffff; /* blue color */
+    }
+    </style>
+{% endblock extrahead %}
+{% block title %}Appointment Details{% endblock title %}
+
+{% block content %}
+<section class="py-10">
+    {% if messages %}
+        <div class="fixed top-20 right-5 space-y-2 z-50">
+            {% for message in messages %}
+                <div id="msgToast" class="flex flex-col px-4 py-3 rounded-lg shadow-lg w-max whitespace-nowrap bg-white border-2 border-blue-300">
+                    <div class="flex items-center justify-between">
+                        <!-- ✅ Tick Icon and Message -->
+                        <div class="flex items-center">
+                            {% if message.tags == 'success' %}
+                                <span class="mr-2">✅</span>
+                            {% elif message.tags == 'error' %}
+                                <span class="mr-2">❌</span>
+                            {% else %}
+                                <span class="mr-2">ℹ️</span>
+                            {% endif %}
+                            <span class="{% if message.tags == 'success' %} text-green-800 {% elif message.tags == 'error' %} text-red-800 {% else %} text-blue-800 {% endif %}">{{ message }}</span>
+                        </div>
+
+                        <!-- ❌ Close Button -->
+                        <button onclick="this.closest('#msgToast').remove()" class="ml-4 text-lg font-bold">✖</button>
+                    </div>
+
+                    <!-- Progress Bar -->
+                    <div class="progress-bar absolute bottom-0 left-0 h-1 bg-gradient-to-br from-blue-600 to-purple-700 w-full rounded-lg"></div>
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+    <div class="root mx-auto px-6 py-8 max-w-6xl">
+        <div class="rounded-lg shadow-md overflow-hidden mb-6">
+            <div class="bg-gradient-to-br from-blue-600 to-purple-700 text-white text-center">
+                <h2 class="py-4 text-xl font-semibold">Appointment Details</h2>
+            </div>
+            <div class="bg-gradient-to-br from-blue-100 to-purple-100">
+                <div class="p-6">
+                    <h2 class="text-xl font-semibold bg-gradient-to-br from-blue-600 to-purple-700 text-transparent bg-clip-text">Doctor Information</h2>
+                    <div class="p-3 flex justify-between bg-white rounded-md border-l-4 border-blue-500">
+                        <div>
+                            <h3 class="font-semibold text-neutral-800">Name</h3>
+                            <p class="text-sm text-gray-800 pb-1">
+                                <span class="text-neutral-500">{{appointment.doctor.full_name}}</span>
+                            </p>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold text-neutral-800">Contact Number</h3>
+                            <p class="text-sm text-gray-800 pb-1">
+                                <span class="text-neutral-500">{{appointment.doctor.mobile_no}}</span>
+                            </p>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold text-neutral-800">Specialization</h3>
+                            <p class="text-sm text-gray-800 pb-1">
+                                <span class="text-neutral-500 uppercase">{{appointment.doctor.specialization}}</span>
+                            </p>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold text-neutral-800">Years of Experience</h3>
+                            <p class="text-sm text-gray-800 pb-1">
+                                <span class="text-neutral-500 uppercase">{{appointment.doctor.yoe}}</span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="p-6 pt-0">
+                    <h2 class="text-xl font-semibold bg-gradient-to-br from-blue-600 to-purple-700 text-transparent bg-clip-text">Appointment Information</h2>
+                    <div class="p-3 flex justify-between bg-white rounded-md border-l-4 border-blue-500">
+                        <div>
+                            <h3 class="font-semibold text-neutral-800">Date</h3>
+                            <p class="text-sm text-gray-800 pb-1">
+                                <span class="text-neutral-500">{{appointment.date}}</span>
+                            </p>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold text-neutral-800">Note</h3>
+                            <p class="text-sm text-gray-800 pb-1">
+                                <span class="text-neutral-500">{{appointment.note}}</span>
+                            </p>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold text-neutral-800">Status</h3>
+                            <p class="text-sm text-gray-800 pb-1">
+                                <span class="text-neutral-500">{{appointment.status}}</span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                {% if appointment.status != 'Canceled' %}
+                    <div class="p-6 pt-0">
+                        <h2 class="text-xl font-semibold bg-gradient-to-br from-blue-600 to-purple-700 text-transparent bg-clip-text">Prescription Details</h2>
+                        <div class="p-3 flex justify-between bg-white rounded-md border-l-4 border-blue-500">
+                            <div>
+                                {% if prescription %}
+                                    <p><strong>Date Issued:</strong> {{ prescription.date_issued }}</p>
+    
+                                    <h3 class="mt-2 font-semibold bg-gradient-to-br from-blue-600 to-purple-700 text-transparent bg-clip-text">Medications:</h3>
+                                    <ul>
+                                        {% for medication in prescription.medications %}
+                                            <li>
+                                                <strong>{{ medication.name }}</strong> - 
+                                                {{ medication.dosage }}, {{ medication.frequency }} for {{ medication.duration }}
+                                            </li>
+                                        {% empty %}
+                                            <li>No medications prescribed.</li>
+                                        {% endfor %}
+                                    </ul>
+                                {% else %}
+                                    <p class="text-neutral-500">No prescription available.</p>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</section>
+{% comment %} Chat Interaction {% endcomment %}
+{% if appointment.status == "Visited" %}
+<div class="chatbot fixed bottom-5 right-5">
+    <!-- Chatbot Button -->
+    <a href="{% url 'chat_room' doctor.user.username %}">
+        <button class="chatbot-btn">
+            <span class="material-symbols-outlined">chat</span>
+        </button>
+    </a>
+</div>
+{% endif %}
+{% endblock content %}

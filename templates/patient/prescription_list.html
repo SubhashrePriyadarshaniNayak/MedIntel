@@ -1,0 +1,39 @@
+<ul class="space-y-4">
+    {% for pres in previous_prescriptions %}
+        <li class="border p-4 rounded-lg shadow-sm bg-gray-50">
+            <div class="flex justify-between">
+                <div class="text-sm text-gray-600">📅 Date: {{ pres.appointment.date }}</div>
+                <a href="{% url 'generate_prescription_pdf' pres.id %}" class="bg-blue-600 text-white px-3 py-1 rounded-md">
+                    Download PDF
+                </a>
+            </div>
+            <div class="text-sm text-gray-600">👨‍⚕️ Doctor: {{ pres.doctor.user.get_full_name }}</div>
+            <div class="text-sm text-gray-700 mt-1">💊 Medications:</div>
+            <ul class="list-disc list-inside text-gray-800 text-sm mt-1">
+                {% for med in pres.medications %}
+                    <li>
+                        <strong>{{ med.name }}</strong> – {{ med.dosage }}, {{ med.frequency }} for {{ med.duration }}
+                    </li>
+                {% endfor %}
+            </ul>
+        </li>
+    {% endfor %}
+</ul>
+
+
+<!-- Pagination Controls -->
+<div class="flex justify-center space-x-2 mt-4">
+    {% if previous_prescriptions.has_previous %}
+        <button onclick="loadPrescriptions(1)" class="px-3 py-1 bg-gray-200 rounded-md hover:bg-gray-300">First</button>
+        <button onclick="loadPrescriptions({{ previous_prescriptions.previous_page_number }})" class="px-3 py-1 bg-gray-200 rounded-md hover:bg-gray-300">Previous</button>
+    {% endif %}
+
+    <span class="px-3 py-1 bg-blue-600 text-white rounded-md">
+        Page {{ previous_prescriptions.number }} of {{ previous_prescriptions.paginator.num_pages }}
+    </span>
+
+    {% if previous_prescriptions.has_next %}
+        <button onclick="loadPrescriptions({{ previous_prescriptions.next_page_number }})" class="px-3 py-1 bg-gray-200 rounded-md hover:bg-gray-300">Next</button>
+        <button onclick="loadPrescriptions({{ previous_prescriptions.paginator.num_pages }})" class="px-3 py-1 bg-gray-200 rounded-md hover:bg-gray-300">Last</button>
+    {% endif %}
+</div>

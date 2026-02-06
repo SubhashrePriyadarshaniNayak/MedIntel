@@ -1,0 +1,316 @@
+{% extends "basic.html" %}
+{% load static %}
+
+{% block title %}Appointment Details{% endblock title %}
+
+{% block content %}
+<section class="py-10">
+    {% if messages %}
+        <div class="fixed top-20 right-5 space-y-2 z-50">
+            {% for message in messages %}
+                <div id="msgToast" class="flex flex-col px-4 py-3 rounded-lg shadow-lg w-max whitespace-nowrap bg-white border-2 border-blue-300">
+                    <div class="flex items-center justify-between">
+                        <!-- ✅ Tick Icon and Message -->
+                        <div class="flex items-center">
+                            {% if message.tags == 'success' %}
+                                <span class="mr-2">✅</span>
+                            {% elif message.tags == 'error' %}
+                                <span class="mr-2">❌</span>
+                            {% else %}
+                                <span class="mr-2">ℹ️</span>
+                            {% endif %}
+                            <span class="{% if message.tags == 'success' %} text-green-800 {% elif message.tags == 'error' %} text-red-800 {% else %} text-blue-800 {% endif %}">{{ message }}</span>
+                        </div>
+
+                        <!-- ❌ Close Button -->
+                        <button onclick="this.closest('#msgToast').remove()" class="ml-4 text-lg font-bold">✖</button>
+                    </div>
+
+                    <!-- Progress Bar -->
+                    <div class="progress-bar absolute bottom-0 left-0 h-1 bg-gradient-to-br from-blue-600 to-purple-700 w-full rounded-lg"></div>
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+    <div class="root mx-auto px-6 py-8 max-w-6xl">
+        <div class="rounded-lg shadow-md overflow-hidden mb-6">
+            <div class="bg-gradient-to-br from-blue-600 to-purple-700 text-white text-center">
+                <h2 class="py-4 text-xl font-semibold">Appointment Details</h2>
+            </div>
+            <div class="bg-gradient-to-br from-blue-100 to-purple-100">
+                <div class="p-6">
+                    <h2 class="text-xl font-semibold bg-gradient-to-br from-blue-600 to-purple-700 text-transparent bg-clip-text">Patient Information</h2>
+                    <div class="p-3 flex justify-between bg-white rounded-md border-l-4 border-blue-500">
+                        <div>
+                            <h3 class="font-semibold text-neutral-800">Name</h3>
+                            <p class="text-sm text-gray-800 pb-1">
+                                <span class="text-neutral-500">{{patient.full_name}}</span>
+                            </p>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold text-neutral-800">Contact Number</h3>
+                            <p class="text-sm text-gray-800 pb-1">
+                                <span class="text-neutral-500">{{appointment.mobile}}</span>
+                            </p>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold text-neutral-800">Age</h3>
+                            <p class="text-sm text-gray-800 pb-1">
+                                <span class="text-neutral-500 uppercase">{{patient.age}}</span>
+                            </p>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold text-neutral-800">Gender</h3>
+                            <p class="text-sm text-gray-800 pb-1">
+                                <span class="text-neutral-500 uppercase">
+                                    {% if patient.gender == 'M' %}
+                                    Male
+                                    {% elif patient.gender == 'F' %}
+                                    Female
+                                    {% else %}
+                                    Others
+                                    {% endif %}
+                                </span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="p-6 pt-0">
+                    <h2 class="text-xl font-semibold bg-gradient-to-br from-blue-600 to-purple-700 text-transparent bg-clip-text">Appointment Information</h2>
+                    <div class="p-3 flex justify-between bg-white rounded-md border-l-4 border-blue-500">
+                        <div>
+                            <h3 class="font-semibold text-neutral-800">Date</h3>
+                            <p class="text-sm text-gray-800 pb-1">
+                                <span class="text-neutral-500">{{appointment.date}}</span>
+                            </p>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold text-neutral-800">Note</h3>
+                            <p class="text-sm text-gray-800 pb-1">
+                                <span class="text-neutral-500">{{appointment.note}}</span>
+                            </p>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold text-neutral-800">Status</h3>
+                            <p class="text-sm text-gray-800 pb-1">
+                                <span class="text-neutral-500">{{appointment.status}}</span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                {% if appointment.status != 'Canceled' %}
+                    <div class="p-6 pt-0">
+                        <h2 class="text-xl font-semibold bg-gradient-to-br from-blue-600 to-purple-700 text-transparent bg-clip-text">Prescription Details</h2>
+                        <div class="p-3 flex justify-between bg-white rounded-md border-l-4 border-blue-500">
+                            <div>
+                                {% if prescription %}
+                                    <p><strong>Date Issued:</strong> {{ prescription.date_issued }}</p>
+    
+                                    <h3 class="mt-2 font-semibold bg-gradient-to-br from-blue-600 to-purple-700 text-transparent bg-clip-text">Medications:</h3>
+                                    <ul>
+                                        {% for medication in prescription.medications %}
+                                            <li>
+                                                <strong>{{ medication.name }}</strong> - 
+                                                {{ medication.dosage }}, {{ medication.frequency }} for {{ medication.duration }}
+                                            </li>
+                                        {% empty %}
+                                            <li>No medications prescribed.</li>
+                                        {% endfor %}
+                                    </ul>
+                                {% else %}
+                                    <p class="text-neutral-500">No prescription available.</p>
+                                {% endif %}
+                            </div>
+                            <div class="flex items-start">
+                                {% if appointment.status == 'Visited' %}
+                                    <button onclick="prescModal()" class="bg-blue-600 text-white px-5 py-2 mt-1 mr-3 rounded-md">
+                                        {% if prescription %}
+                                        Update
+                                        {% else %}
+                                        Add
+                                        {% endif %}
+                                    </button>
+                                {% endif %}
+
+                                <button onclick="allPrescModal()" class="bg-blue-600 text-white px-5 py-2 mt-1 rounded-md">Show Previous Prescriptions</button>
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Add/Update Prescription Modal -->
+<div id="presModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 hidden">
+    <div class="bg-white dark:bg-neutral-800 rounded-lg shadow-lg max-w-6xl w-full mx-4">
+        <div class="p-6 border-b border-neutral-200/30 dark:border-neutral-700/30 flex justify-between items-center">
+            <h3 class="text-xl font-semibold bg-gradient-to-br from-blue-600 to-purple-700 text-transparent bg-clip-text dark:text-white">Add Prescription for {{ patient.full_name }}</h3>
+            <button onclick="closePrescModal()" class="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+            </button>
+        </div>
+
+        <div class="p-6 pt-1">
+            <form method="post" onsubmit="saveMedications()" action="{% url "add_prescription" appointment.id %}">
+                {% csrf_token %}
+        
+                <div class="px-3 pb-3 flex items-center justify-between">
+                    <h3 class="text-xl font-semibold bg-gradient-to-br from-blue-600 to-purple-700 text-transparent bg-clip-text dark:text-white">Medications</h3>
+                    <button type="button" onclick="addMedication()" class="bg-green-600 text-white px-5 py-2 mt-1 rounded-md">+ Add Medication</button>
+                </div>
+                <table id="medications-table" class="w-full border-collapse border border-gray-300 rounded-lg">
+                    <thead>
+                        <tr>
+                            <th scope="col" class="border border-gray-300 px-4 py-2 text-left bg-gradient-to-br from-blue-600 to-purple-700 text-transparent bg-clip-text">Medicine Name</th>
+                            <th scope="col" class="border border-gray-300 px-4 py-2 text-left bg-gradient-to-br from-blue-600 to-purple-700 text-transparent bg-clip-text">Dosage</th>
+                            <th scope="col" class="border border-gray-300 px-4 py-2 text-left bg-gradient-to-br from-blue-600 to-purple-700 text-transparent bg-clip-text">Frequency</th>
+                            <th scope="col" class="border border-gray-300 px-4 py-2 text-left bg-gradient-to-br from-blue-600 to-purple-700 text-transparent bg-clip-text">Duration</th>
+                            <th scope="col" class="border border-gray-300 px-4 py-2 text-left bg-gradient-to-br from-blue-600 to-purple-700 text-transparent bg-clip-text">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+        
+                <input type="hidden" name="medications_json" id="medications-json">
+                
+                <br><br>
+                <div class="flex justify-end px-2">
+                    <button type="submit" class="bg-blue-600 text-white px-5 py-2 mt-1 rounded-md">Save Prescription</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Show Previous Prescriptions Modal -->
+<div id="allPresModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 hidden">
+    <div class="bg-white dark:bg-neutral-800 rounded-lg shadow-lg max-w-6xl w-full mx-4">
+        <div class="p-6 border-b border-neutral-200/30 dark:border-neutral-700/30 flex justify-between items-center">
+            <h3 class="text-xl font-semibold bg-gradient-to-br from-blue-600 to-purple-700 text-transparent bg-clip-text dark:text-white">All Prescriptions for {{ patient.full_name }}</h3>
+            <button onclick="closeAllPrescModal()" class="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+            </button>
+        </div>
+
+        <div class="p-6 pt-1">
+            <h2 class="text-xl font-semibold text-gray-800 mb-2">Previous Prescriptions</h2>
+
+            {% if previous_prescriptions %}
+                <ul class="space-y-4">
+                    {% for pres in previous_prescriptions %}
+                        <li class="border p-4 rounded-lg shadow-sm bg-gray-50">
+                            <div class="text-sm text-gray-600">Date: {{ pres.appointment.date }}</div>
+                            <div class="text-sm text-gray-600">Doctor: {{ pres.doctor.user.get_full_name }}</div>
+                            <div class="text-sm text-gray-700 mt-1">Medications:</div>
+                            <ul class="list-disc list-inside text-gray-800 text-sm mt-1">
+                                {% for med in pres.medications %}
+                                    <li>
+                                        <strong>{{ med.name }}</strong> – {{ med.dosage }}, {{ med.frequency }} for {{ med.duration }}
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p class="text-gray-500">No previous prescriptions found.</p>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+<script>
+    function prescModal() {
+        document.getElementById("presModal").classList.remove('hidden');
+    }
+
+    function closePrescModal() {
+        document.getElementById("presModal").classList.add('hidden');
+    }
+    function allPrescModal() {
+        document.getElementById("allPresModal").classList.remove('hidden');
+    }
+
+    function closeAllPrescModal() {
+        document.getElementById("allPresModal").classList.add('hidden');
+    }
+</script>
+
+<script>
+    let medications = {{ prescription.medications|default:"[]"|safe }};
+
+    function addMedication(name="", dosage="", frequency="", duration="") {
+        let table = document.getElementById("medications-table");
+        let row = table.insertRow(-1);
+
+        row.innerHTML = `
+            <td class="border border-gray-300 px-4 py-2"><input type="text" value="${name}" class="med-name w-full p-2 border border-blue-500 rounded focus:ring-2 focus:ring-blue-500"></td>
+            <td class="border border-gray-300 px-4 py-2"><input type="text" value="${dosage}" class="med-dosage w-full p-2 border border-blue-500 rounded focus:ring-2 focus:ring-blue-500"></td>
+            <td class="border border-gray-300 px-4 py-2"><input type="text" value="${frequency}" class="med-frequency w-full p-2 border border-blue-500 rounded focus:ring-2 focus:ring-blue-500"></td>
+            <td class="border border-gray-300 px-4 py-2"><input type="text" value="${duration}" class="med-duration w-full p-2 border border-blue-500 rounded focus:ring-2 focus:ring-blue-500"></td>
+            <td class="border border-gray-300 px-4 py-2"><button type="button" onclick="removeMedication(this)" class="text-red-600">Remove</button></td>
+        `;
+    }
+
+    function removeMedication(button) {
+        let row = button.parentElement.parentElement;
+        row.remove();
+    }
+
+    // Preload existing medications
+    medications.forEach(function(med) {
+        addMedication(med.name, med.dosage, med.frequency, med.duration)
+    });
+</script>
+
+<script>
+    function saveMedications(event) {
+        event.preventDefault();  // Prevent form submission until validation
+
+        let meds = [];
+        let rows = document.querySelectorAll("#medications-table tr:not(:first-child)");
+
+        if (rows.length === 0) {
+            alert("Please add at least one medication.");
+            return false; // Stop submission
+        }
+
+        let isValid = true;
+
+        rows.forEach(function(row) {
+            let name = row.querySelector(".med-name")?.value.trim();
+            let dosage = row.querySelector(".med-dosage")?.value.trim();
+            let frequency = row.querySelector(".med-frequency")?.value.trim();
+            let duration = row.querySelector(".med-duration")?.value.trim();
+
+            if (!name || !dosage || !frequency || !duration) {
+                isValid = false;
+                row.classList.add("bg-red-100"); // Highlight invalid row
+            } else {
+                row.classList.remove("bg-red-100");
+                meds.push({ name, dosage, frequency, duration });
+            }
+        });
+
+        if (!isValid) {
+            alert("Please fill out all medication fields.");
+            return false;
+        }
+
+        // Save medications as JSON in hidden input
+        document.getElementById("medications-json").value = JSON.stringify(meds);
+
+        // Submit the form after validation
+        event.target.submit();
+    }
+
+    // Attach validation to form
+    document.querySelector("form").addEventListener("submit", saveMedications);
+</script>
+{% endblock content %}

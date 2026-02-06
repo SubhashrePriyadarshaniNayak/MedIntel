@@ -1,0 +1,470 @@
+{% extends "basic.html" %}
+{% load static %}
+
+<!-- Page Title -->
+{% block title %}Appointment Page{% endblock title %}
+
+<!-- Header Content -->
+{% block extrahead %}
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="description" content="Search for doctors based on name, specialization, or locality. Find the right healthcare professional for your needs with our easy-to-use doctor search tool.">
+<meta name="theme-color" content="#ffffff">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="robots" content="">
+
+<!-- SEO Description -->
+<meta name="description" content="Search for doctors based on name, specialization, or locality. Find the right healthcare professional for your needs with our easy-to-use doctor search tool.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<!-- Performance optimization: Preload critical resources -->
+<link rel="preload" href="https://cdn.tailwindcss.com" as="script">
+
+<!-- Header Scripts -->
+<script id="header-scripts">
+// This script tag will be replaced with actual scripts.head content
+if (window.scripts && window.scripts.head) {
+    document.getElementById('header-scripts').outerHTML = window.scripts.head;
+}
+</script>
+
+<!-- Preconnect -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+
+<!-- Font stylesheet -->
+
+<script type="application/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.8/handlebars.min.js"></script>
+
+<!-- Core CSS -->
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+// render the settings object
+//console.log('settings', [object Object]);
+document.addEventListener('DOMContentLoaded', function() {
+tailwind.config = {
+    theme: {
+    extend: {
+        colors: {
+        primary: {
+            DEFAULT: '#1E88E5',
+            50: '#f8f8f8',
+            100: '#e8e8e8', 
+            200: '#d3d3d3',
+            300: '#a3a3a3',
+            400: '#737373',
+            500: '#525252',
+            600: '#404040',
+            700: '#262626',
+            800: '#171717',
+            900: '#0a0a0a',
+            950: '#030303',
+        },
+        secondary: {
+            DEFAULT: '#F5F5F5',
+            50: '#f8f8f8',
+            100: '#e8e8e8',
+            200: '#d3d3d3', 
+            300: '#a3a3a3',
+            400: '#737373',
+            500: '#525252',
+            600: '#404040',
+            700: '#262626',
+            800: '#171717',
+            900: '#0a0a0a',
+            950: '#030303',
+        },
+        accent: {
+            DEFAULT: '',
+            50: '#f8f8f8',
+            100: '#e8e8e8',
+            200: '#d3d3d3',
+            300: '#a3a3a3', 
+            400: '#737373',
+            500: '#525252',
+            600: '#404040',
+            700: '#262626',
+            800: '#171717',
+            900: '#0a0a0a',
+            950: '#030303',
+        },
+        },
+        fontFamily: {
+        sans: ['Roboto, sans-serif', 'Inter', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Helvetica Neue', 'Arial', 'sans-serif'],
+        heading: ['Open Sans, sans-serif', 'Inter', 'system-ui', 'sans-serif'],
+        body: ['Open Sans, sans-serif', 'Inter', 'system-ui', 'sans-serif'],
+        },
+        spacing: {
+        '18': '4.5rem',
+        '22': '5.5rem',
+        '30': '7.5rem',
+        },
+        maxWidth: {
+        '8xl': '88rem',
+        '9xl': '96rem',
+        },
+        animation: {
+        'fade-in': 'fadeIn 0.5s ease-in',
+        'fade-out': 'fadeOut 0.5s ease-out',
+        'slide-up': 'slideUp 0.5s ease-out',
+        'slide-down': 'slideDown 0.5s ease-out',
+        'slide-left': 'slideLeft 0.5s ease-out',
+        'slide-right': 'slideRight 0.5s ease-out',
+        'scale-in': 'scaleIn 0.5s ease-out',
+        'scale-out': 'scaleOut 0.5s ease-out',
+        'spin-slow': 'spin 3s linear infinite',
+        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+        'bounce-slow': 'bounce 3s infinite',
+        'float': 'float 3s ease-in-out infinite',
+        },
+        keyframes: {
+        fadeIn: {
+            '0%': { opacity: '0' },
+            '100%': { opacity: '1' },
+        },
+        fadeOut: {
+            '0%': { opacity: '1' },
+            '100%': { opacity: '0' },
+        },
+        slideUp: {
+            '0%': { transform: 'translateY(20px)', opacity: '0' },
+            '100%': { transform: 'translateY(0)', opacity: '1' },
+        },
+        slideDown: {
+            '0%': { transform: 'translateY(-20px)', opacity: '0' },
+            '100%': { transform: 'translateY(0)', opacity: '1' },
+        },
+        slideLeft: {
+            '0%': { transform: 'translateX(20px)', opacity: '0' },
+            '100%': { transform: 'translateX(0)', opacity: '1' },
+        },
+        slideRight: {
+            '0%': { transform: 'translateX(-20px)', opacity: '0' },
+            '100%': { transform: 'translateX(0)', opacity: '1' },
+        },
+        scaleIn: {
+            '0%': { transform: 'scale(0.9)', opacity: '0' },
+            '100%': { transform: 'scale(1)', opacity: '1' },
+        },
+        scaleOut: {
+            '0%': { transform: 'scale(1.1)', opacity: '0' },
+            '100%': { transform: 'scale(1)', opacity: '1' },
+        },
+        float: {
+            '0%, 100%': { transform: 'translateY(0)' },
+            '50%': { transform: 'translateY(-10px)' },
+        },
+        },
+        aspectRatio: {
+        'portrait': '3/4',
+        'landscape': '4/3',
+        'ultrawide': '21/9',
+        },
+    },
+    },
+    variants: {
+    extend: {
+        opacity: ['disabled'],
+        cursor: ['disabled'],
+        backgroundColor: ['active', 'disabled'],
+        textColor: ['active', 'disabled'],
+    },
+    },
+}
+});
+</script>
+
+<!-- Utilities and Components -->
+<script defer="" src="https://cdnjs.cloudflare.com/ajax/libs/alpinejs/3.13.3/cdn.min.js"></script>
+<script defer="" src="https://cdnjs.cloudflare.com/ajax/libs/apexcharts/3.45.1/apexcharts.min.js"></script>
+
+<!-- Optimized Font Loading -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+
+<!-- Icons -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer">
+
+<!-- Dynamic Meta Tags -->
+<meta name="description" content="">
+<meta name="keywords" content="">
+<meta name="robots" content="">
+<meta name="google-site-verification" content="">
+<meta name="baidu-verification" content="">
+<meta name="yandex-verification" content="">
+<meta name="bing-verification" content="">
+<meta property="og:title" content="">
+<meta property="og:description" content="">
+<meta property="og:image" content="">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="en_US">
+<meta property="og:site_name" content="Our Doctors">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="">
+<meta name="twitter:description" content="">
+<meta name="twitter:image" content="">
+
+
+<!-- Font Links -->
+<link rel="icon" type="image/x-icon" href="">
+
+<!-- Custom styles -->
+
+{% endblock extrahead %}
+
+<!-- Page Content -->
+{% block content %}
+<div class="antialiased text-gray-800 min-h-screen flex flex-col">
+    <!-- Main content area -->
+    <main id="main-content" class="flex-1 relative h-full">
+        <div id="RolloutPageContent">
+            {% if messages %}
+            <div class="fixed top-20 right-5 space-y-2 z-50">
+                {% for message in messages %}
+                    <div id="msgToast" class="flex flex-col px-4 py-3 rounded-lg shadow-lg w-max whitespace-nowrap bg-white border-2 border-blue-300">
+                        <div class="flex items-center justify-between">
+                            <!-- ✅ Tick Icon and Message -->
+                            <div class="flex items-center">
+                                {% if message.tags == 'success' %}
+                                    <span class="mr-2">✅</span>
+                                {% elif message.tags == 'error' %}
+                                    <span class="mr-2">❌</span>
+                                {% else %}
+                                    <span class="mr-2">ℹ️</span>
+                                {% endif %}
+                                <span class="{% if message.tags == 'success' %} text-green-800 {% elif message.tags == 'error' %} text-red-800 {% else %} text-blue-800 {% endif %}">{{ message }}</span>
+                            </div>
+
+                            <!-- ❌ Close Button -->
+                            <button onclick="this.closest('#msgToast').remove()" class="ml-4 text-lg font-bold">✖</button>
+                        </div>
+
+                        <!-- Progress Bar -->
+                        <div class="progress-bar absolute bottom-0 left-0 h-1 bg-gradient-to-br from-blue-600 to-purple-700 w-full rounded-lg"></div>
+                    </div>
+                {% endfor %}
+            </div>
+            {% endif %}
+            <div class="root mx-auto px-10 py-10">
+                <div class="text-center mb-12 animate__animated animate__fadeIn" style="visibility: visible;">
+                    <h2 class="text-3xl md:text-4xl font-bold mb-2 bg-gradient-to-br from-blue-600 to-purple-700 text-transparent bg-clip-text">Book Your Appointment with <span class="text-orange-400 font-bold drop-shadow-lg">Dr. {{ doctor.user.first_name }} {{ doctor.user.last_name }}</span></h2>
+                    <p class="text-lg text-gray-400 max-w-2xl mx-auto">Schedule your visit with our medical professionals quickly and easily using our appointment form.</p>
+                </div>
+                <div class="p-5 container shadow-[0_4px_10px_rgba(0,0,255,0.2)] rounded-lg bg-gradient-to-br from-blue-100 to-purple-200">
+                    <div class="mx-auto rounded-lg shadow-lg overflow-hidden mb-6">
+                        <div class="md:flex">
+                            <div class="md:w-1/2 bg-gradient-to-br from-blue-600 to-purple-700 shadow-[0_4px_10px_rgba(0,0,255,0.2)] p-8 flex items-center justify-center">
+                                <div class="text-center animate__animated animate__fadeInLeft animate__fadeIn text-white" style="visibility: visible;">
+                                    <svg class="w-24 h-24 mx-auto mb-4" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                        <path d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.11 0-2 .89-2 2v14a2 2 0 002 2h14a2 2 0 002-2V6a2 2 0 00-2-2zm0 16H5V10h14v10zM5 8V6h14v2H5zm2 4h10v2H7v-2zm0 4h7v2H7v-2z"></path>
+                                    </svg>
+                                    <h3 class="text-xl font-bold mb-2">Why Schedule Online?</h3>
+                                    <ul class="text-left text-sm space-y-2">
+                                        <li class="flex items-center">
+                                        <svg class="w-4 h-4 mr-2 text-green-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                                        </svg>
+                                        Save time with online booking
+                                        </li>
+                                        <li class="flex items-center">
+                                        <svg class="w-4 h-4 mr-2 text-green-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                                        </svg>
+                                        Choose your preferred doctor
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <!-- Appointment Booking Form -->
+                            <div class="md:w-1/2 bg-white p-6 shadow-[0_4px_10px_rgba(0,0,255,0.2)]">
+                                <form action="{% url 'appointment' doctor.id %}" method="post" onsubmit="return validateAppointment(event)">
+                                    {% csrf_token %}
+                                    <label class="block mb-2">Contact No.</label>
+                                    <input type="text" name="mobile" class="w-full p-2 border border-blue-500 rounded" id="mobile">
+                                    <label class="error text-red-500" id="mobileError"></label>
+        
+                                    <label class="block mt-3 mb-2">Date</label>
+                                    <input type="date" name="date" class="w-full p-2 border border-blue-500 rounded" id="date">
+                                    <label class="error text-red-500" id="dateError"></label>
+        
+                                    <label class="block mt-3 mb-2">Purpose of Appointment</label>
+                                    <textarea rows="4" class="w-full p-2 border border-blue-500 rounded" name="note" id="note"></textarea>
+                                    <label class="error text-red-500" id="noteError"></label>
+        
+                                    <button type="submit" class="bg-gradient-to-br from-blue-600 to-purple-700 mt-4 w-full bg-blue-600 text-white p-2 rounded">Submit</button>
+                                </form>
+                            </div>
+                        </div> 
+                    </div>
+                    <!-- Current & Previous Bookings -->
+                    <div class="rounded-lg shadow-md bg-white">
+                        <div class="bg-gradient-to-br from-blue-600 to-purple-700 text-center rounded-t-lg">
+                            <h3 class="text-lg py-3 font-semibold mb-3 text-white">Current &amp; Previous Bookings</h3>
+                        </div>
+                        
+                        <div class="px-5 overflow-auto">
+                            {% if appointments %}
+                                <table class="min-w-full divide-y divide-blue-700">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col" class="px-7 py-3 text-left font-semibold uppercase tracking-wider bg-gradient-to-br from-blue-600 to-purple-700 text-transparent bg-clip-text">Date</th>
+                                            <th scope="col" class="px-6 py-3 text-left font-semibold uppercase tracking-wider bg-gradient-to-br from-blue-600 to-purple-700 text-transparent bg-clip-text">Contact No.</th>
+                                            <th scope="col" class="px-6 py-3 text-left font-semibold uppercase tracking-wider bg-gradient-to-br from-blue-600 to-purple-700 text-transparent bg-clip-text">Note</th>
+                                            <th scope="col" class="px-6 py-3 text-left font-semibold uppercase tracking-wider bg-gradient-to-br from-blue-600 to-purple-700 text-transparent bg-clip-text">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="divide-y divide-blue-700">
+                                        {% for app in appointments %}
+                                            <tr>
+                                                <td class="px-6 py-4 whitespace-nowrap">{{ app.date }}</td>
+                                                <td class="px-6 py-4 whitespace-nowrap">{{ app.mobile }}</td>
+                                                <td class="px-6 py-4 whitespace-nowrap">{{ app.note }}</td>
+                                                <td class="px-6 py-4 whitespace-nowrap">
+                                                    <a href="{% url 'update_appointment' app.id %}" class="text-blue-600"><i class="fa-solid fa-pen-to-square me-2"></i></a>
+                                                    <a href="{% url 'delete_appointment' app.id %}" class="text-red-600 ml-2" onclick=" return confirmDelete(event)"><i class="fa-solid fa-trash"></i></a>
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            {% else %}
+                                <p class="px-7 py-3 text-left font-semibold uppercase tracking-wider text-red-500">No appointment to show.</p>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+{% block javascript %}
+<script>
+    function confirmDelete(event){
+        let res = confirm("Are you sure, you want to delete?")
+        if(!res){
+            event.preventDefault();
+        }
+    }
+    function validateAppointment(e) {
+        let mobile = document.querySelector('#mobile').value.trim();
+        let date = document.querySelector('#date').value;
+        let note = document.querySelector('#note').value.trim();
+        let currentDate = new Date().toISOString().split('T')[0];
+        let maxDate = new Date();
+        maxDate.setDate(maxDate.getDate() + 7);
+        maxDate = maxDate.toISOString().split('T')[0];
+
+        let error = false;
+
+        // Mobile Number Validation
+        if (mobile === "" || mobile === null) {
+            document.querySelector('#mobileError').innerHTML = "Please enter your Mobile Number";
+            document.querySelector('#mobile').style.border = "1px solid red";
+            error = true;
+        } else if (mobile.length !== 10 || !/^\d{10}$/.test(mobile)) {
+            document.querySelector('#mobileError').innerHTML = "Mobile Number must be 10 digits";
+            document.querySelector('#mobile').style.border = "1px solid red";
+            error = true;
+        } else {
+            document.querySelector('#mobileError').innerHTML = "";
+            document.querySelector('#mobile').style.border = "1px solid #3b82f6"; // Blue border for valid input
+        }
+
+        // Date Validation
+        if (date === "" || date === null) {
+            document.querySelector('#dateError').innerHTML = "Please enter Date of Appointment";
+            document.querySelector('#date').style.border = "1px solid red";
+            error = true;
+        } else if (date < currentDate || date > maxDate) {
+            document.querySelector('#dateError').innerHTML = "Date of Appointment must be within the next 7 days";
+            document.querySelector('#date').style.border = "1px solid red";
+            error = true;
+        } else {
+            document.querySelector('#dateError').innerHTML = "";
+            document.querySelector('#date').style.border = "1px solid #3b82f6";
+        }
+
+        // Note Validation
+        if (note === "" || note === null) {
+            document.querySelector('#noteError').innerHTML = "Please enter Purpose of Appointment";
+            document.querySelector('#note').style.border = "1px solid red";
+            error = true;
+        } else {
+            document.querySelector('#noteError').innerHTML = "";
+            document.querySelector('#note').style.border = "1px solid #3b82f6";
+        }
+
+        if (error) {
+            e.preventDefault();
+        }
+    }
+    document.querySelector("form").addEventListener("submit", validateAppointment);
+
+    // ✅ Real-time Validation: Remove errors as users type or select values
+    document.querySelector("#mobile").addEventListener("input", function () {
+        let mobile = this.value.trim();
+        if (mobile.length === 10 && /^\d{10}$/.test(mobile)) {
+            document.querySelector('#mobileError').innerHTML = "";
+            this.style.border = "1px solid #3b82f6";
+        }
+    });
+
+    document.querySelector("#date").addEventListener("input", function () {
+        let date = this.value;
+        let currentDate = new Date().toISOString().split('T')[0];
+        let maxDate = new Date();
+        maxDate.setDate(maxDate.getDate() + 7);
+        maxDate = maxDate.toISOString().split('T')[0];
+
+        if (date >= currentDate && date <= maxDate) {
+            document.querySelector('#dateError').innerHTML = "";
+            this.style.border = "1px solid #3b82f6";
+        }
+    });
+
+    document.querySelector("#note").addEventListener("input", function () {
+        if (this.value.trim() !== "") {
+            document.querySelector('#noteError').innerHTML = "";
+            this.style.border = "1px solid #3b82f6";
+        }
+    });
+    window.onload = function() {
+        let currentDate = new Date().toISOString().split('T')[0];
+        let maxDate = new Date();
+        maxDate.setDate(maxDate.getDate() + 7);
+        maxDate = maxDate.toISOString().split('T')[0];
+
+        let dateInput = document.querySelector('#date');
+        dateInput.setAttribute('min', currentDate);
+        dateInput.setAttribute('max', maxDate);
+
+        // Restrict calendar view
+        dateInput.addEventListener('focus', function() {
+            this.setAttribute('min', currentDate);
+            this.setAttribute('max', maxDate);
+        });
+    }
+
+
+</script>
+
+<script>
+    document.querySelectorAll('#msgToast').forEach(function(toast) {
+        const progressBar = toast.querySelector('.progress-bar');
+
+        // Animate the progress bar
+        progressBar.style.transition = 'width 3s linear';
+        progressBar.style.width = '0%';
+
+        // Remove the toast after 3 seconds
+        setTimeout(function() {
+            toast.remove();
+        }, 3000);
+    });
+</script>
+
+{% endblock javascript %}
+{% endblock content %}
+

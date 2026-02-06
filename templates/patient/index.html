@@ -1,0 +1,626 @@
+{% extends "basic.html" %}
+{% load static %}
+
+<!-- Page Title -->
+{% block title %}Patient Page{% endblock title %}
+
+<!-- Header Content -->
+{% block extrahead %}
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="description" content="Search for doctors based on name, specialization, or locality. Find the right healthcare professional for your needs with our easy-to-use doctor search tool.">
+<meta name="theme-color" content="#ffffff">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="robots" content="">
+
+<!-- SEO Description -->
+<meta name="description" content="Search for doctors based on name, specialization, or locality. Find the right healthcare professional for your needs with our easy-to-use doctor search tool.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<!-- Performance optimization: Preload critical resources -->
+<link rel="preload" href="https://cdn.tailwindcss.com" as="script">
+
+<!-- Header Scripts -->
+<script id="header-scripts">
+// This script tag will be replaced with actual scripts.head content
+if (window.scripts && window.scripts.head) {
+    document.getElementById('header-scripts').outerHTML = window.scripts.head;
+}
+</script>
+
+<!-- Preconnect -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+
+<!-- Font stylesheet -->
+
+<script type="application/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.8/handlebars.min.js"></script>
+
+<!-- Core CSS -->
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+// render the settings object
+//console.log('settings', [object Object]);
+document.addEventListener('DOMContentLoaded', function() {
+tailwind.config = {
+    theme: {
+    extend: {
+        colors: {
+        primary: {
+            DEFAULT: '#1E88E5',
+            50: '#f8f8f8',
+            100: '#e8e8e8', 
+            200: '#d3d3d3',
+            300: '#a3a3a3',
+            400: '#737373',
+            500: '#525252',
+            600: '#404040',
+            700: '#262626',
+            800: '#171717',
+            900: '#0a0a0a',
+            950: '#030303',
+        },
+        secondary: {
+            DEFAULT: '#F5F5F5',
+            50: '#f8f8f8',
+            100: '#e8e8e8',
+            200: '#d3d3d3', 
+            300: '#a3a3a3',
+            400: '#737373',
+            500: '#525252',
+            600: '#404040',
+            700: '#262626',
+            800: '#171717',
+            900: '#0a0a0a',
+            950: '#030303',
+        },
+        accent: {
+            DEFAULT: '',
+            50: '#f8f8f8',
+            100: '#e8e8e8',
+            200: '#d3d3d3',
+            300: '#a3a3a3', 
+            400: '#737373',
+            500: '#525252',
+            600: '#404040',
+            700: '#262626',
+            800: '#171717',
+            900: '#0a0a0a',
+            950: '#030303',
+        },
+        },
+        fontFamily: {
+        sans: ['Roboto, sans-serif', 'Inter', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Helvetica Neue', 'Arial', 'sans-serif'],
+        heading: ['Open Sans, sans-serif', 'Inter', 'system-ui', 'sans-serif'],
+        body: ['Open Sans, sans-serif', 'Inter', 'system-ui', 'sans-serif'],
+        },
+        spacing: {
+        '18': '4.5rem',
+        '22': '5.5rem',
+        '30': '7.5rem',
+        },
+        maxWidth: {
+        '8xl': '88rem',
+        '9xl': '96rem',
+        },
+        animation: {
+        'fade-in': 'fadeIn 0.5s ease-in',
+        'fade-out': 'fadeOut 0.5s ease-out',
+        'slide-up': 'slideUp 0.5s ease-out',
+        'slide-down': 'slideDown 0.5s ease-out',
+        'slide-left': 'slideLeft 0.5s ease-out',
+        'slide-right': 'slideRight 0.5s ease-out',
+        'scale-in': 'scaleIn 0.5s ease-out',
+        'scale-out': 'scaleOut 0.5s ease-out',
+        'spin-slow': 'spin 3s linear infinite',
+        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+        'bounce-slow': 'bounce 3s infinite',
+        'float': 'float 3s ease-in-out infinite',
+        },
+        keyframes: {
+        fadeIn: {
+            '0%': { opacity: '0' },
+            '100%': { opacity: '1' },
+        },
+        fadeOut: {
+            '0%': { opacity: '1' },
+            '100%': { opacity: '0' },
+        },
+        slideUp: {
+            '0%': { transform: 'translateY(20px)', opacity: '0' },
+            '100%': { transform: 'translateY(0)', opacity: '1' },
+        },
+        slideDown: {
+            '0%': { transform: 'translateY(-20px)', opacity: '0' },
+            '100%': { transform: 'translateY(0)', opacity: '1' },
+        },
+        slideLeft: {
+            '0%': { transform: 'translateX(20px)', opacity: '0' },
+            '100%': { transform: 'translateX(0)', opacity: '1' },
+        },
+        slideRight: {
+            '0%': { transform: 'translateX(-20px)', opacity: '0' },
+            '100%': { transform: 'translateX(0)', opacity: '1' },
+        },
+        scaleIn: {
+            '0%': { transform: 'scale(0.9)', opacity: '0' },
+            '100%': { transform: 'scale(1)', opacity: '1' },
+        },
+        scaleOut: {
+            '0%': { transform: 'scale(1.1)', opacity: '0' },
+            '100%': { transform: 'scale(1)', opacity: '1' },
+        },
+        float: {
+            '0%, 100%': { transform: 'translateY(0)' },
+            '50%': { transform: 'translateY(-10px)' },
+        },
+        },
+        aspectRatio: {
+        'portrait': '3/4',
+        'landscape': '4/3',
+        'ultrawide': '21/9',
+        },
+    },
+    },
+    variants: {
+    extend: {
+        opacity: ['disabled'],
+        cursor: ['disabled'],
+        backgroundColor: ['active', 'disabled'],
+        textColor: ['active', 'disabled'],
+    },
+    },
+}
+});
+</script>
+
+<!-- Utilities and Components -->
+<script defer="" src="https://cdnjs.cloudflare.com/ajax/libs/alpinejs/3.13.3/cdn.min.js"></script>
+<script defer="" src="https://cdnjs.cloudflare.com/ajax/libs/apexcharts/3.45.1/apexcharts.min.js"></script>
+
+<!-- Optimized Font Loading -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+
+<!-- Icons -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+<!-- Dynamic Meta Tags -->
+<meta name="description" content="">
+<meta name="keywords" content="">
+<meta name="robots" content="">
+<meta name="google-site-verification" content="">
+<meta name="baidu-verification" content="">
+<meta name="yandex-verification" content="">
+<meta name="bing-verification" content="">
+<meta property="og:title" content="">
+<meta property="og:description" content="">
+<meta property="og:image" content="">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="en_US">
+<meta property="og:site_name" content="Our Doctors">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="">
+<meta name="twitter:description" content="">
+<meta name="twitter:image" content="">
+
+
+<!-- Font Links -->
+<link rel="icon" type="image/x-icon" href="">
+
+<!-- Custom styles -->
+
+{% endblock extrahead %}
+
+<!-- Page Content -->
+{% block content %}
+<div class="antialiased text-gray-800 min-h-screen flex flex-col">
+    <!-- Main content area -->
+    <main id="main-content" class="flex-1 relative h-full">
+        <div id="RolloutPageContent">
+            {% if messages %}
+            <div class="fixed top-20 right-5 space-y-2 z-50">
+                {% for message in messages %}
+                    <div id="msgToast" class="flex flex-col px-4 py-3 rounded-lg shadow-lg w-max whitespace-nowrap bg-white border-2 border-blue-300">
+                        <div class="flex items-center justify-between">
+                            <!-- ✅ Tick Icon and Message -->
+                            <div class="flex items-center">
+                                {% if message.tags == 'success' %}
+                                    <span class="mr-2">✅</span>
+                                {% elif message.tags == 'error' %}
+                                    <span class="mr-2">❌</span>
+                                {% else %}
+                                    <span class="mr-2">ℹ️</span>
+                                {% endif %}
+                                <span class="{% if message.tags == 'success' %} text-green-800 {% elif message.tags == 'error' %} text-red-800 {% else %} text-blue-800 {% endif %}">{{ message }}</span>
+                            </div>
+
+                            <!-- ❌ Close Button -->
+                            <button onclick="this.closest('#msgToast').remove()" class="ml-4 text-lg font-bold">✖</button>
+                        </div>
+
+                        <!-- Progress Bar -->
+                        <div class="progress-bar absolute bottom-0 left-0 h-1 bg-gradient-to-br from-blue-600 to-purple-700 w-full rounded-lg"></div>
+                    </div>
+                {% endfor %}
+            </div>
+            {% endif %}
+
+            <div class="root mx-auto px-6 py-8 max-w-6xl">
+                <!-- User Info Card -->
+                <div class="rounded-lg shadow-md overflow-hidden mb-6">
+                    <div class="bg-gradient-to-br from-blue-600 to-purple-700 p-4 flex items-center justify-between">
+                        <div class="flex items-center">
+                            <div class="w-10 h-10 bg-white rounded-full flex items-center justify-center mr-4 overflow-hidden">
+                                <img src="{% static 'homepage/images/patient.PNG' %}" alt="Profile Picture" class="w-full h-full object-cover">
+                            </div>
+                            <div class="text-white">
+                                <h3 class="text-xl font-semibold">Welcome, {{ patient.full_name }}!</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="bg-white rounded-lg shadow-md overflow-hidden mb-6">
+                    <div class="bg-gradient-to-br from-blue-600 to-purple-700 text-white">
+                        <div class="flex justify-around">
+                            <button class="px-6 py-3 font-medium focus:outline-none" id="personalInfoButton">
+                              Personal Info
+                            </button>
+                            <button class="px-6 py-3 font-medium focus:outline-none" id="appointmentsButton">
+                              Appointments
+                            </button>
+                            <button class="px-6 py-3 font-medium focus:outline-none" id="prescriptionsButton">
+                              My Prescriptions
+                            </button>
+                        </div>
+                    </div>
+
+
+                    <div class="p-6 bg-gradient-to-br from-blue-50 to-purple-100">
+                        <div class="personal-info rounded-md" id="personalInfoSection">
+                            <div class="space-y-3">
+                                <div class="p-3 bg-white rounded-md border-l-4 border-blue-500">
+                                    <div class="flex justify-between items-start">
+                                        <div>
+                                            <h3 class="font-semibold text-neutral-800">Username</h3>
+                                            <p class="text-sm text-gray-800 pb-1">
+                                                <span class="text-neutral-500">{{user.username}}</span>
+                                            </p>
+                                        </div>
+                                        <div class="text-right mt-3">
+                                            <a href="{% url 'password_update' %}" class="w-1/2 bg-yellow-500 hover:bg-yellow-600 text-white py-2 px-4 rounded-md text-center transition-colors font-medium">
+                                                Edit Password
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="p-3 bg-white rounded-md border-l-4 border-blue-500">
+                                    <div class="flex justify-between items-start">
+                                        <div>
+                                            <h3 class="font-semibold text-neutral-800">Email</h3>
+                                            <p class="text-sm text-gray-800 pb-1">
+                                                <span class="text-neutral-500">{{user.email}}</span>
+                                            </p>
+                                        </div>
+                                        <div class="text-right mt-3">
+                                            <a href="{% url 'email_update' %}" class="w-1/2 bg-blue-600 hover:bg-blue-500 text-white py-2 px-4 rounded-md text-center transition-colors font-medium">
+                                                Update Email
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="p-3 bg-white rounded-md border-l-4 border-blue-500">
+                                    <div>
+                                        <h3 class="font-semibold text-neutral-800">Contact Number</h3>
+                                        <p class="text-sm text-gray-800 pb-1">
+                                            <span class="text-neutral-500">{{patient.mobile_no}}</span>
+                                        </p>
+                                    </div>
+                                </div>
+
+
+                                <div class="p-3 bg-white rounded-md border-l-4 border-blue-500">
+                                    <div>
+                                        <h3 class="font-semibold text-neutral-800">Date of Birth</h3>
+                                        <p class="text-sm text-gray-800 pb-1">
+                                            <span class="text-neutral-500">{{patient.date_of_birth}}</span>
+                                        </p>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="appointments-info" id="appointmentsSection">
+                            <div class="space-y-3 overflow-y-auto">
+                                {% if appointments %}
+                                    <table class="w-full divide-y divide-blue-700">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col" class="px-3 py-3 text-left font-semibold uppercase tracking-wider bg-gradient-to-br from-blue-600 to-purple-700 text-transparent bg-clip-text">Sl. no.</th>
+                                                <th scope="col" class="px-6 py-3 text-left font-semibold uppercase tracking-wider bg-gradient-to-br from-blue-600 to-purple-700 text-transparent bg-clip-text">Date</th>
+                                                <th scope="col" class="px-6 py-3 text-left font-semibold uppercase tracking-wider bg-gradient-to-br from-blue-600 to-purple-700 text-transparent bg-clip-text">Note</th>
+                                                <th scope="col" class="px-6 py-3 text-left font-semibold uppercase tracking-wider bg-gradient-to-br from-blue-600 to-purple-700 text-transparent bg-clip-text">Doctor</th>
+                                                <th scope="col" class="px-6 py-3 text-left font-semibold uppercase tracking-wider bg-gradient-to-br from-blue-600 to-purple-700 text-transparent bg-clip-text">Status</th>
+                                                <th scope="col" class="px-6 py-3 text-left font-semibold uppercase tracking-wider bg-gradient-to-br from-blue-600 to-purple-700 text-transparent bg-clip-text">Details</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="divide-y divide-blue-700 text-neutral-800">
+                                            {% for appointment in appointments %}
+                                            <tr class="bg-white">
+                                                <td class="px-4 py-2 whitespace-nowrap">{{ forloop.counter }}</td>
+                                                <td class="px-4 py-2 whitespace-nowrap">{{ appointment.date }}</td>
+                                                <td class="px-4 py-2 whitespace-nowrap">{{ appointment.note }}</td>
+                                                <td class="px-4 py-2 whitespace-nowrap">{{ appointment.doctor.user.username }}</td>
+                                                <td class="px-4 py-2 whitespace-nowrap text-sm">
+                                                    {% if appointment.status == "Visited" %}
+                                                        <div>
+                                                            <span class="p-2 leading-5 rounded-full bg-green-100 text-green-800">{{ appointment.status }}</span>
+                                                        </div>
+                                                    {% elif appointment.status == "Booked" %}
+                                                        <span class="p-2 leading-5 rounded-full bg-yellow-100 text-yellow-800">{{ appointment.status }}</span>
+                                                    {% else %}
+                                                        <span class="p-2 leading-5 rounded-full bg-red-100 text-red-800">{{ appointment.status }}</span>
+                                                    {% endif %}
+                                                </td>
+                                                <td class="px-4 whitespace-nowrap text-center">
+                                                    <a href="{% url "appointment_details" appointment.id %}" class="px-4 py-1 text-blue-500 border border-blue-500 rounded hover:bg-blue-500 hover:text-white transition">Show</a>
+                                                </td>
+                                            </tr>
+                                            {% endfor %}
+                                        </tbody>
+                                    </table>
+                                {% else %}
+                                    <p class="text-gray-500 text-center mt-4">No appointments to show.</p>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="my-prescriptions" id="prescriptionsSection">
+                            <div class="space-y-3 overflow-y-auto">
+                                {% if previous_prescriptions %}
+                                    <div class="flex justify-between items-center my-4">
+                                        <label for="doctor-filter" class="font-semibold">Filter by Doctor:</label>
+                                        <select id="doctor-filter" class="border px-4 py-2 rounded-md">
+                                            <option value="">All Doctors</option>
+                                            {% for doctor in doctors %}
+                                                <option value="{{ doctor.id }}">Dr. {{ doctor.user.get_full_name }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>                                
+                                    <div id="prescriptions-container">
+                                        {% include "patient/prescription_list.html" %}
+                                    </div>
+                                {% else %}
+                                    <p class="text-gray-500">No previous prescriptions found.</p>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+
+<!-- Chatbot -->
+<div class="chatbot fixed bottom-5 right-5">
+    <!-- Chatbot Button -->
+    <button onclick="openChat()" class="w-14 h-14 flex items-center justify-center border-2 border-blue-600 bg-white rounded-full shadow-[0_4px_10px_rgba(0,0,255,0.2)] text-red-500 hover:bg-red-500 hover:text-white">
+        <i class="fa-solid fa-comment-medical fa-2xl"></i>
+    </button>
+
+    <!-- Backdrop (Overlay) -->
+    <div id="chatBackdrop" class="fixed inset-0 bg-black bg-opacity-50 hidden z-40"></div>
+
+    <!-- Chat Interface -->
+    <div id="chatInterface" class="fixed bottom-5 right-5 bg-white rounded-lg shadow-xl w-[400px] md:w-[406px] max-h-[400px] flex flex-col hidden z-50">
+        <!-- Chat Header -->
+        <div class="bg-gradient-to-br from-blue-600 to-purple-700 text-white p-4 rounded-t-lg flex justify-between items-center">
+            <div class="flex items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+                </svg>
+                <h3 class="font-medium">MedAI Chat</h3>
+            </div>
+            <button onclick="closeChat()" class="text-white hover:text-gray-200">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                  <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+                </svg>
+            </button>
+        </div>
+
+        <!-- Chat Message Area -->
+        <div id="chatMessages" class="p-4 overflow-y-auto flex-grow space-y-4">
+            <div class="bg-red-100 text-center rounded-lg py-2 px-4 max-w">
+                <p class="text-sm text-red-800">MedAI is an experimental medical assistant. For medical emergencies or serious health concerns, always consult a healthcare professional.</p>
+            </div>
+            <div id="chatbox" class="flex flex-col space-y-4 mb-4 text-sm text-gray-800"></div>
+        </div>
+
+        <!-- Chat Input Area -->
+        <div class="border-t-2 p-3">
+            <div class="flex items-center">
+                <input type="text" id="messageInput" placeholder="Type your health question..." class="w-full border rounded-l-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                <button id="sendMessageBtn" onclick="askChatbot()" class="bg-gradient-to-br from-blue-600 to-purple-700 hover:bg-blue-500 text-white rounded-r-lg px-4 py-3 disabled:opacity-50">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 rotate-90" viewBox="0 0 20 20" fill="currentColor">
+                      <path d="M10.894 2.553a1 1 0 00-1.788 0l-7 14a1 1 0 001.169 1.409l5-1.429A1 1 0 009 15.571V11a1 1 0 112 0v4.571a1 1 0 00.725.962l5 1.428a1 1 0 001.17-1.408l-7-14z"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+
+        <div class="text-center px-3 py-2"><p class="text-red-700 text-xs">MedAI may provide inaccurate information. Verify critical details with a medical specialist.</p></div>
+    </div>
+</div>
+
+<!-- {bodyScripts} -->
+<script src="{% static "patient/js/index.js" %}"></script>
+
+<script>
+    // Get the button and info section elements
+    const personalInfoButton = document.getElementById('personalInfoButton');
+    const personalInfoSection = document.getElementById('personalInfoSection');
+    const appointmentsButton = document.getElementById('appointmentsButton');
+    const appointmentsSection = document.getElementById('appointmentsSection');
+    const prescriptionsButton = document.getElementById('prescriptionsButton');
+    const prescriptionsSection = document.getElementById('prescriptionsSection');
+
+    // Set initial state (hidden by default)
+    appointmentsSection.classList.add('hidden');
+    prescriptionsSection.classList.add('hidden');
+
+    personalInfoButton.classList.add("text-yellow-400", "border-b-2", "border-yellow-400");
+
+    // Add event listener to toggle visibility
+    personalInfoButton.addEventListener('click', function () {
+        personalInfoSection.classList.remove('hidden');
+        appointmentsSection.classList.add('hidden');
+        prescriptionsSection.classList.add('hidden');
+        
+        personalInfoButton.classList.add("text-yellow-400", "border-b-2", "border-yellow-400");
+        appointmentsButton.classList.remove("text-yellow-400", "border-b-2", "border-yellow-400");
+        prescriptionsButton.classList.remove("text-yellow-400", "border-b-2", "border-yellow-400");
+
+        appointmentsButton.classList.add("hover:text-yellow-400");
+        prescriptionsButton.classList.add("hover:text-yellow-400");
+    });
+
+    // Add event listener to toggle visibility
+    appointmentsButton.addEventListener('click', function () {
+        appointmentsSection.classList.remove('hidden');
+        personalInfoSection.classList.add('hidden');
+        prescriptionsSection.classList.add('hidden');
+        
+        appointmentsButton.classList.add("text-yellow-400", "border-b-2", "border-yellow-400");
+        personalInfoButton.classList.remove("text-yellow-400", "border-b-2", "border-yellow-400");
+        prescriptionsButton.classList.remove("text-yellow-400", "border-b-2", "border-yellow-400");
+
+        personalInfoButton.classList.add("hover:text-yellow-400");
+        prescriptionsButton.classList.add("hover:text-yellow-400");
+    });
+
+    // Add event listener to toggle visibility
+    prescriptionsButton.addEventListener('click', function () {
+        prescriptionsSection.classList.remove('hidden');
+        personalInfoSection.classList.add('hidden');
+        appointmentsSection.classList.add('hidden');
+        
+        prescriptionsButton.classList.add("text-yellow-400", "border-b-2", "border-yellow-400");
+        personalInfoButton.classList.remove("text-yellow-400", "border-b-2", "border-yellow-400");
+        appointmentsButton.classList.remove("text-yellow-400", "border-b-2", "border-yellow-400");
+
+        personalInfoButton.classList.add("hover:text-yellow-400");
+        appointmentsButton.classList.add("hover:text-yellow-400");
+    });
+</script>
+
+<script>
+    document.getElementById('doctor-filter').addEventListener('change', function () {
+        loadPrescriptions(1);  // Reload prescriptions when doctor is selected
+    });
+    
+    function loadPrescriptions(page) {
+        let doctorId = document.getElementById('doctor-filter').value;
+        let url = `?page=${page}`;
+        if (doctorId) {
+            url += `&doctor=${doctorId}`;
+        }
+    
+        fetch(url, {
+            headers: { "X-Requested-With": "XMLHttpRequest" }
+        })
+        .then(response => response.json())
+        .then(data => {
+            document.getElementById('prescriptions-container').innerHTML = data.prescriptions_html;
+        })
+        .catch(error => console.error('Error loading prescriptions:', error));
+    }        
+</script>    
+
+<script>
+    function openChat() {
+        document.getElementById("chatInterface").classList.remove("hidden");
+        document.getElementById("chatBackdrop").classList.remove("hidden");
+    }
+
+    function closeChat() {
+        document.getElementById("chatInterface").classList.add("hidden");
+        document.getElementById("chatBackdrop").classList.add("hidden");
+    }
+    document.getElementById("messageInput").addEventListener("keypress", function (event) {
+        if (event.key === "Enter") {
+            event.preventDefault(); // Prevents form submission if inside a form
+            askChatbot();
+        }
+    });
+    
+    document.getElementById("sendMessageBtn").addEventListener("click", askChatbot);
+    
+    async function askChatbot() {
+        const messageInput = document.getElementById("messageInput");
+        const query = messageInput.value.trim();
+        if (!query) return; // Prevent sending empty messages
+    
+        const chatbox = document.getElementById("chatbox");
+        const chatMessages = document.getElementById("chatMessages");
+        const sendMessageBtn = document.getElementById("sendMessageBtn");
+    
+        // Append user message
+        chatbox.innerHTML += `<div class="flex items-end justify-end"><div class="bg-purple-100 overflow-x-auto rounded-lg ml-6 py-2 px-4"><p><strong>You:</strong> ${query}</p></div></div>`;
+        messageInput.value = ""; // Clear input field
+        sendMessageBtn.disabled = true;
+    
+        // Smooth scroll to latest message
+        chatMessages.scrollTo({
+            top: chatMessages.scrollHeight,
+            behavior: "smooth"
+        });
+    
+        try {
+            const response = await fetch("{% url 'chatbot_response' %}", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ query: query }),
+            });
+    
+            const data = await response.json();
+            
+            // Append chatbot response
+            chatbox.innerHTML += `<div class="bg-blue-100 rounded-lg mr-6 py-2 px-4"><p><strong>MedAI:</strong> ${data.response}</p></div>`;
+            
+            // Smooth scroll to latest message
+            chatMessages.scrollTo({
+                top: chatMessages.scrollHeight,
+                behavior: "smooth"
+            });
+    
+            sendMessageBtn.disabled = false;
+        } catch (error) {
+            console.error("Error:", error);
+            sendMessageBtn.disabled = false;
+        }
+    }
+</script>
+
+<script>
+    document.querySelectorAll('#msgToast').forEach(function(toast) {
+        const progressBar = toast.querySelector('.progress-bar');
+
+        // Animate the progress bar
+        progressBar.style.transition = 'width 3s linear';
+        progressBar.style.width = '0%';
+
+        // Remove the toast after 3 seconds
+        setTimeout(function() {
+            toast.remove();
+        }, 3000);
+    });
+</script>
+
+{% endblock content %}
